@@ -2,12 +2,11 @@
   <div id="app">
     <Header/>
     <AddTodo v-on:add-todo="addTodo"/>
-    <Todos v-bind:todos="todos" v-on:del-todo="deleteTodo"/>
+    <Todos v-bind:todos="todos" v-on:del-todo="deleteTodo" v-on:status-changed="statusChanged"/>
   </div>
 </template>
 
 <script>
-import axios from "axios";
 import Header from "./components/layouts/Header.vue";
 import Todos from "./components/Todos.vue";
 import AddTodo from "./components/AddTodo.vue";
@@ -21,29 +20,13 @@ export default {
   },
   methods: {
     addTodo(newTodo) {
-      const { title, completed } = newTodo;
-
-      axios
-        .post("https://jsonplaceholder.typicode.com/todos", {
-          title,
-          completed
-        })
-        .then(res => {
-          this.todos = [...this.todos, res.data];
-        })
-        .catch(err => {
-          throw err;
-        });
+      this.todos = [...this.todos, newTodo];
     },
     deleteTodo(id) {
-      axios
-        .delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
-        .then(res => {
-          this.todos = this.todos.filter(f => f.id !== id);
-        })
-        .catch(err => {
-          throw err;
-        });
+      this.todos = this.todos.filter(f => f.id !== id);
+    },
+    statusChanged(todo) {
+      this.$forceUpdate();
     }
   },
   data() {
@@ -52,14 +35,15 @@ export default {
     };
   },
   created() {
-    axios
-      .get("https://jsonplaceholder.typicode.com/todos?_limit=8")
-      .then(res => {
-        this.todos = res.data;
-      })
-      .catch(err => {
-        throw err;
-      });
+    // called after component has been loaded
+    let fromStorage = localStorage.getItem("todos");
+    if (fromStorage) {
+      this.todos = JSON.parse(fromStorage);
+    }
+  },
+  updated() {
+    // called after any state has changed
+    localStorage.setItem("todos", JSON.stringify(this.todos));
   }
 };
 </script>

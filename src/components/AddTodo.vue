@@ -8,28 +8,36 @@
 </template>
 
 <script>
+import uuid from "uuid";
+
 export default {
   name: "AddTodo",
   methods: {
     addTodo(e) {
-        e.preventDefault();
+      e.preventDefault();
 
-        // create todo
-        const newTodo = {
-            title: this.title
-        };
+      if (!this.title || this.title.trim().length === 0) {
+        return;
+      }
 
-        // send up to parent
-        this.$emit('add-todo', newTodo);
+      // create todo
+      const newTodo = {
+        id: uuid.v4(),
+        title: this.title,
+        completed: false
+      };
 
-        // reset form
-        this.title = '';
+      // send up to parent
+      this.$emit("add-todo", newTodo);
+
+      // reset form
+      this.title = "";
     }
   },
   data() {
-      return {
-          title: ''
-      }
+    return {
+      title: ""
+    };
   }
 };
 </script>
