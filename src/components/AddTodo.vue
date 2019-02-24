@@ -1,10 +1,24 @@
 <template>
-  <div>
-    <form @submit="addTodo">
-      <input type="text" name="title" v-model="title" placeholder="Add todo..">
-      <input type="submit" value="Submit" class="btn">
-    </form>
-  </div>
+  <form @submit="addTodo">
+    <div class="container pl-2 pr-2 pt-2">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="input-group">
+            <input
+              type="text"
+              name="title"
+              v-model="title"
+              placeholder="Enter the task description..."
+              class="form-control"
+            >
+            <div class="input-group-append">
+              <input type="submit" value="Add" class="btn btn-primary btn-block">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
 </template>
 
 <script>
@@ -43,16 +57,4 @@ export default {
 </script>
 
 <style scoped>
-form {
-  display: flex;
-}
-
-input[type="text"] {
-  flex: 10;
-  padding: 5px;
-}
-
-input[type="submit"] {
-  flex: 2;
-}
 </style>

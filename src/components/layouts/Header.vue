@@ -1,6 +1,10 @@
 <template>
-  <header class="header">
-    <h1>TodoList</h1>
+  <header>
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+      <div class="container d-flex justify-content-between">
+        <a class="navbar-brand d-flex align-items-center" href="/">TodoList</a>
+      </div>
+    </div>
   </header>
 </template>
 
@@ -11,15 +15,4 @@ export default {
 </script>
 
 <style scoped>
-.header {
-  background: #333;
-  color: #fff;
-  text-align: center;
-  padding: 10px;
-}
-
-.header a {
-  color: #fff;
-  padding-right: 5px;
-}
 </style>
