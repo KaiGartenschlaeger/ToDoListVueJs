@@ -9,14 +9,16 @@
       ></div>
     </div>
     <div class="mt-3">
-      <h5 v-if="todos.length > 0">In Progress
+      <h5 v-if="todos.length > 0">
+        In Progress
         <small>
           <span class="badge badge-secondary">{{todosInProgress.length}}</span>
         </small>
       </h5>
       <ul class="list-group list-group-flush" v-if="todos.length > 0">
-        <template v-for="todo in todosInProgress" b-bind:key="todo.id">
+        <template v-for="todo in todosInProgress">
           <TodoItem
+            v-bind:key="todo.id"
             v-bind:todo="todo"
             v-bind:removeable="false"
             v-on:del-todo="$emit('del-todo', todo)"
@@ -32,14 +34,16 @@
       </div>
     </div>
     <div class="mt-3" v-if="todosDone.length > 0">
-      <h5>Done
+      <h5>
+        Done
         <small>
           <span class="badge badge-secondary">{{todosDone.length}}</span>
         </small>
       </h5>
       <ul class="list-group list-group-flush">
-        <template v-for="todo in todosDone" b-bind:key="todo.id">
+        <template v-for="todo in todosDone">
           <TodoItem
+            v-bind:key="todo.id"
             v-bind:todo="todo"
             v-bind:removeable="true"
             v-on:del-todo="$emit('del-todo', todo)"
